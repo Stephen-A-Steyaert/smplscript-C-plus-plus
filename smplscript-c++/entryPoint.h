@@ -6,6 +6,6 @@
 #include <string>
 
 // run function for console input
-Lexer::valueReturn run(std::string text);
+Lexer::valueReturn run(std::string fileName, std::string text);
 
 #endif

@@ -4,8 +4,8 @@
 
 // run function
 // creates a Lexer object, generates tokens from input text, returns the result
-Lexer::valueReturn run(std::string text) {
-	Lexer lexer = Lexer(text);
+Lexer::valueReturn run(std::string fileName, std::string text) {
+	Lexer lexer = Lexer(fileName, text);
 
 	Lexer::valueReturn lexerResult =  lexer.generateTokens();
 

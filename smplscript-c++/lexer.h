@@ -2,8 +2,9 @@
 #ifndef LEXER_H
 #define LEXER_H
 
-#include "illegalcharerror.h"
+#include "illegalCharError.h"
 #include "token.h"
+#include "position.h"
 #include <string>
 #include <vector>
 
@@ -20,14 +21,15 @@ public:
 		std::vector<Token> tokens;
 	};
 	Lexer();
-	Lexer(std::string text);
+	Lexer(std::string fileName, std::string text);
 	valueReturn generateTokens();
 private:
 	void advance();
 	Token makeNumber();
+	std::string mFileName;
 	std::string mText;
 	char mCurrentChar;
-	int mCurrentPos;
+	Position* mCurrentPos;
 };
 
 #endif

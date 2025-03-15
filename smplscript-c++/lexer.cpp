@@ -1,4 +1,4 @@
-#include "illegalcharerror.h"
+#include "illegalCharError.h"
 #include "lexer.h"
 #include "constants.h"
 #include <string>
@@ -13,14 +13,15 @@
 Lexer::Lexer() {
 	mText = nullptr;
 	mCurrentChar = NULL;
-	mCurrentPos = NULL;
+	mCurrentPos = nullptr;
 }
 // Constructor
 // Initializes the text field to the input text, sents the current positiion to -1, advances 
 // to the next character in the text
-Lexer::Lexer(std::string text) {
+Lexer::Lexer(std::string fileName, std::string text) {
+	mFileName = fileName;
 	mText = text;
-	mCurrentPos = -1;
+	mCurrentPos = new Position(-1, 0, -1, fileName, text);
 	mCurrentChar = NULL;
 	advance();
 }
@@ -28,9 +29,9 @@ Lexer::Lexer(std::string text) {
 // Increments the current position, checks if the current position is less than the length of the text,
 // if it is, sets the current character to the character at the current position in the text
 void Lexer::advance() {
-	mCurrentPos++;
-	if (mCurrentPos < mText.length()) {
-		mCurrentChar = mText[mCurrentPos];
+	mCurrentPos->advance(mCurrentChar);
+	if (mCurrentPos->getIndex() < mText.length()) {
+		mCurrentChar = mText[mCurrentPos->getIndex()];
 	}
 	else {
 		mCurrentChar = NULL;
@@ -97,13 +98,14 @@ Lexer::valueReturn Lexer::generateTokens() {
 				advance();
 				break;
 			default:
+				Position* posStart = &mCurrentPos->copy();
 				char currentChar = mCurrentChar;
 				advance();
 				tokens.clear();
-				return { IllegalCharError("'" + std::string(1, currentChar) + "'"), true, tokens};
+				return { IllegalCharError(posStart, mCurrentPos, "'" + std::string(1, currentChar) + "'"), true, tokens};
 			}
 		}
 
 	}
-	return { IllegalCharError(""), false, tokens};
+	return { IllegalCharError(), false, tokens};
 }

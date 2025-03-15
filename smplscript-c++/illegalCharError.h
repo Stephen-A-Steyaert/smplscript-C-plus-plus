@@ -11,7 +11,8 @@
 class IllegalCharError : public Error
 {
 public:
-	IllegalCharError(std::string details);
+	IllegalCharError();
+	IllegalCharError(Position* posStart, Position* posEnd, std::string details);
 };
 
 #endif

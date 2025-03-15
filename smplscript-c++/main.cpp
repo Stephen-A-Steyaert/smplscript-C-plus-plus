@@ -12,7 +12,7 @@ int main() {
 	std::string text;
 	std::getline(std::cin, text);
 
-	Lexer::valueReturn result = run(text);
+	Lexer::valueReturn result = run("<stdin>", text);
 
 	if (result.hasError){
 		std::cout << result.error.toString() << std::endl;
