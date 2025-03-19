@@ -62,7 +62,7 @@ Token Lexer::makeNumber() {
 
 // generateTokens function
 // Generates tokens from the text, returns a vector of tokens or an error if an illegal character is found
-Lexer::valueReturn Lexer::generateTokens() {
+std::vector<Token> Lexer::generateTokens() {
 	std::vector<Token> tokens;
 	while (mCurrentChar != NULL) {
 		if (mCurrentChar == ' ' || mCurrentChar == '\t') {
@@ -102,10 +102,10 @@ Lexer::valueReturn Lexer::generateTokens() {
 				char currentChar = mCurrentChar;
 				advance();
 				tokens.clear();
-				return { IllegalCharError(posStart, mCurrentPos, "'" + std::string(1, currentChar) + "'"), true, tokens};
+				throw IllegalCharError(posStart, mCurrentPos, "'" + std::string(1, currentChar) + "'");
 			}
 		}
 
 	}
-	return { IllegalCharError(), false, tokens};
+	return tokens;
 }

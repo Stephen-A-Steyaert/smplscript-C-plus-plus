@@ -15,14 +15,9 @@
 class Lexer
 {
 public:
-	struct valueReturn {
-		IllegalCharError error;
-		bool hasError;
-		std::vector<Token> tokens;
-	};
 	Lexer();
 	Lexer(std::string fileName, std::string text);
-	valueReturn generateTokens();
+	std::vector<Token> generateTokens();
 private:
 	void advance();
 	Token makeNumber();

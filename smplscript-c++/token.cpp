@@ -58,4 +58,5 @@ std::string Token::toString() {
 	else if (mIntValue != NULL) {
 		out += ":" + mIntValue;
 	}
+	return out;
 }
